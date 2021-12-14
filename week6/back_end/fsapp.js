@@ -6,9 +6,9 @@ const { send } = require("process");
 const db = mysql.createConnection ({
         host: "localhost",
         user: "root",
-        password: "123456789",
+        password: "password",
         //establish a connection to a specific database
-        database:  "salesorders"
+        database:  "hr"
 });
 
 // established a database connection
@@ -24,18 +24,18 @@ db.connect((err) =>{
 
 
 
-//create a database
-// app.get("/createDB", (req, res) => {
-//     let mysql = "Create Database fsw140wk6fullstack";
-//     //Execute the SQL Query
-//     db.query(mysql, (err, result) => {
-//         if (err){
-//             throw err;
-//         }
-//         console.log(result);
-//         res.send("fsw140wk6fullstack Database Successfully Created!");
-//     });
-// });
+// create a database
+app.get("/Select", (req, res) => {
+    let mysql = "Select * from Employees";
+    //Execute the SQL Query
+    db.query(mysql, (err, result) => {
+        if (err){
+            throw err;
+        }
+        console.log("HR Database Successfully Created!");
+        res.send(result);
+    });
+});
 
 // //create a table
 // app.get("/createDB", (req, res) => {
@@ -53,7 +53,7 @@ db.connect((err) =>{
 //create = insert | Read = Select | Update = Update | Delete = Delete
 //execute insert:query for the first two
 app.post('/insertRow1', (req, res) => {
-    let post = {title: "First Row", mesage: "This is my first row through EJS/Node/Js"}
+    let post ={title: req.body.title, message: req.body.message} 
     let mysql = "insert into employees set?";
     //run command
     db.query(mysql, (error, result => {
